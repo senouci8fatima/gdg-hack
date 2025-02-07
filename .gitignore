@@ -1,0 +1,29 @@
+# Virtual Environment
+venv/
+env/
+
+# Django migrations
+*/migrations/__pycache__/
+*/migrations/*.pyc
+*/migrations/*.pyo
+*/migrations/*.py, !*/migrations/__init__.py
+
+# Compiled files
+__pycache__/
+*.py[cod]
+
+# Database
+db.sqlite3
+
+# Media & Static files (optional, if using cloud storage)
+media/
+staticfiles/
+
+# Secret settings
+.env
+*.log
+
+# IDE/editor files
+.vscode/
+*.swp
+.idea/

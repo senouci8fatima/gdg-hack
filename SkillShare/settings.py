@@ -57,7 +57,7 @@ ROOT_URLCONF = 'SkillShare.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'SkillShare',
         'USER': 'root',
-        'PASSWORD': '0123456789',
+        'PASSWORD': 'fatima2004',
         'HOST': 'localhost',  # Or your database host
         'PORT': '3306',       # Default MySQL port
 
@@ -134,4 +134,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'users.Etudiant'

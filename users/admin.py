@@ -1,10 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
+from .models import Etudiant
 
-class CustomUserAdmin(UserAdmin):
+class EtudiantAdmin(UserAdmin):  # Change class name from CustomUserAdmin to EtudiantAdmin
     fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('role',)}),
+        (None, {'fields': ('rate', 'level', 'coins', 'rewards')}),  # Make sure these fields exist in the model
     )
 
-admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Etudiant, EtudiantAdmin)  # Register Etudiant instead of CustomUser
