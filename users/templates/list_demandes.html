@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Demandes</title>
+</head>
+<body>
+    <h2>All Demandes</h2>
+    <ul id="demandesList"></ul>
+
+    <script>
+        async function fetchDemandes() {
+            let response = await fetch("/demandes/");
+            let data = await response.json();
+
+            let demandesList = document.getElementById("demandesList");
+            demandesList.innerHTML = "";
+
+            data.demandes.forEach(demande => {
+                let li = document.createElement("li");
+                li.innerText = `${demande.titre} - ${demande.description} (By: ${demande.demandeur__first_name} ${demande.demandeur__last_name})`;
+                demandesList.appendChild(li);
+            });
+        }
+
+        fetchDemandes();
+    </script>
+</body>
+</html>

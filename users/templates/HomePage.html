@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        .sidebar {
+            background: #54BD95;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: fixed;
+            width: 80px;
+            height: 90vh;
+            top: 5%;
+            left: 10px;
+            border-radius: 10px;
+            padding-top: 10px;
+            transition: width 0.3s;
+            justify-content: space-between;
+        }
+
+        /* Logo Button */
+        .logo {
+            font-size: 20px;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .logo i {
+            font-size: 22px;
+        }
+
+        /* Adds space between logo and menu */
+        .spacer {
+            flex-grow: 0.5;
+        }
+
+        /* Sidebar Buttons */
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+            width: 100%;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .sidebar a i {
+            font-size: 20px;
+            text-align: center;
+        }
+
+        /* Hover Effect */
+        .sidebar a:hover {
+            background: #495057;
+        }
+
+        /* User Profile */
+        .profile {
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        /* Header */
+        header {
+            padding: 15px 30px;
+            display: flex;
+            justify-content: flex-end; /* Align items to the right */
+            align-items: center;
+            width: 90%;
+            position: fixed;
+            top: 0;
+            left: 110px;
+            height: 60px;
+            border-radius: 100px;
+        }
+
+        /* Level & Coins Buttons */
+        .user-info {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .user-info button {
+            background:#FFC728;
+            border: 2px solid  #FFC728;
+            color: white;
+            padding: 8px 12px;
+            font-size: 14px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+            cursor: default;
+        }
+
+        .user-info button i {
+            font-size: 16px;
+            color: white;
+        }
+        .coins-value {
+            background:white;
+            border: 2px solid  #FFC728;
+            color:black;
+            padding: 8px 12px;
+            font-size: 14px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+            cursor: default;
+        }
+        .coins-value i{
+            font-size: 16px;
+            color:  #FFC728;
+        }
+        section {
+            margin-top: 80px;
+            padding: 50px;
+            color: black;
+        }
+
+        button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ff4f4f;
+        }
+/* Content Layout Fix */
+.content {
+    flex: 1;
+    margin-left: 90px;
+    padding: 20px;
+    text-align: left; /* Align text to the left */
+    display: flex;
+    align-items: flex-start; /* Align to the top */
+    justify-content: flex-start; /* Align everything to the top */
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Welcome Section */
+.welcome-section {
+    margin-left: 30px; /* Space from sidebar */
+    text-align: left;
+    padding-top: 10px; /* Small gap from header */
+}
+
+.welcome-section h3 {
+    font-size: 32px; /* Bigger title */
+    font-weight: bold;
+    color: #333;
+}
+
+.welcome-section p {
+    font-size: 18px;
+    color: #555;
+}
+
+
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <!-- Logo Button -->
+    <a href="#" class="logo">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <!-- Space after logo -->
+    <div class="spacer"></div>
+
+    <!-- Sidebar Menu -->
+    <a href="#"><i class="fas fa-home"></i> </a>
+    <a href="#"><i class="fas fa-envelope"></i> </a>
+    <a href="#"><i class="fas fa-cog"></i> </a>
+    <a href="#"><i class="fas fa-sign-out-alt"></i> </a>
+
+    <!-- User Profile at Bottom -->
+    <div class="profile">
+        <a href="#"><i class="fas fa-user"></i> </a>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="content">
+    <header>
+        <!-- User Level & Coins -->
+        <div class="user-info">
+            <button><i class="fas fa-star"></i> Level {{user.level}}</button>
+
+            <button class="coins-value"><i class="fas fa-coins"></i> {{user.coins}}</button>
+
+        </div>
+    </header>
+
+    <section class="welcome-section">
+        <h3>Welcome Back, {{user.username}}!</h3>
+        <p>Here’s a snapshot of your progress and achievements on SkillSwap.</p>
+    </section>
+</div>
+
+</body>
+</html>

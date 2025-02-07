@@ -28,7 +28,7 @@ class Reward(models.Model):
 class Etudiant(AbstractUser):
     rate = models.FloatField(default=0.0)  # Note ou score de l'étudiant
     level = models.IntegerField(default=1)  # Niveau de l'étudiant
-    coins = models.IntegerField(default=0)  # Monnaie virtuelle ou points de l'étudiant
+    coins = models.IntegerField(default=5)  # Monnaie virtuelle ou points de l'étudiant
     rewards = models.ManyToManyField(Reward, related_name="students", blank=True)  # Récompenses de l'étudiant
 
     def __str__(self):
@@ -121,6 +121,7 @@ class StudyGroup(models.Model):
 
   def __str__(self):
         return f"Study Group: {self.titre} - Host: {self.host.first_name} {self.host.last_name} - Niveau: {self.niveau}"
+    
 class Reponse(models.Model):
     demande = models.ForeignKey(Demande, on_delete=models.CASCADE, related_name="reponses")  # Question
     repondeur = models.ForeignKey(Etudiant, on_delete=models.CASCADE)  # User who answered
