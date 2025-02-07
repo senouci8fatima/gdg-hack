@@ -2,16 +2,6 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.timezone import now, timedelta
 
-class CustomUser(AbstractUser):
-    ROLE_CHOICES = [
-        ('etudiant', 'Étudiant'),
-        ('admin', 'Administrateur'),
-    ]
-   
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='etudiant')
-
-    def __str__(self):
-        return f"{self.username}"
 
 class Reward(models.Model):
     REWARD_TYPES = [
@@ -35,18 +25,16 @@ class Reward(models.Model):
     
 
 # Proxy models for different roles
-class Etudiant(CustomUser):
+class Etudiant(AbstractUser):
     rate = models.FloatField(default=0.0)  # Note ou score de l'étudiant
     level = models.IntegerField(default=1)  # Niveau de l'étudiant
-    coins = models.IntegerField(default=0)  # Monnaie virtuelle ou points de l'étudiant
+    coins = models.IntegerField(default=5)  # Monnaie virtuelle ou points de l'étudiant
     rewards = models.ManyToManyField(Reward, related_name="students", blank=True)  # Récompenses de l'étudiant
 
     def __str__(self):
         return f"Étudiant: {self.first_name} {self.last_name}"
 
-class AdminSuper(CustomUser):
-    def __str__(self):
-        return f"Admin: {self.first_name} {self.last_name}"
+
     
 class Meet(models.Model):
     link = models.URLField()  # Lien de la réunion (ex: Zoom, Google Meet)
@@ -133,6 +121,12 @@ class StudyGroup(models.Model):
 
   def __str__(self):
         return f"Study Group: {self.titre} - Host: {self.host.first_name} {self.host.last_name} - Niveau: {self.niveau}"
+class Reponse(models.Model):
+    demande = models.ForeignKey(Demande, on_delete=models.CASCADE, related_name="reponses")  # Question
+    repondeur = models.ForeignKey(Etudiant, on_delete=models.CASCADE)  # User who answered
+    content = models.TextField()  # Answer content
+    created_at = models.DateTimeField(auto_now_add=True)  # Timestamp
 
+    def __str__(self):
+        return f"Réponse by {self.repondeur.username} on {self.demande.titre}"
 from django.db import models
-

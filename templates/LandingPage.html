@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        /* Header */
+        header {
+            background: #343a40;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        header ul li {
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Section principale */
+        section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            text-align: center;
+            padding: 50px;
+            background: url('https://source.unsplash.com/1600x900/?technology') no-repeat center center/cover;
+            color: white;
+        }
+
+        section img {
+            width: 300px;
+            height: auto;
+            border-radius: 10px;
+            margin-right: 20px;
+        }
+
+        section div {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+          
+        }
+
+        h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ff4f4f;
+        }
+
+        /* Footer */
+        footer {
+            background: #343a40;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        footer h4 {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <ul>
+        <li>LOGO</li>
+    </ul>
+    <ul>
+        <form action="{% url 'sign_in' %}" method="POST">
+            {% csrf_token %}
+            <button>Sign In</button>
+        </form>
+        <form action="{% url 'sign_up' %}" method="POST">
+            {% csrf_token %}
+            <button>Sign Up</button>
+        </form>
+        
+    </ul>
+</header>
+
+<section>
+    <div>
+        <h3>THE TITLE</h3>
+        <p>Here to put the paragraph</p>
+        <button>See more</button>
+    </div>
+</section>
+
+<footer>
+    <h4>Made with ❤️</h4>
+    <p>© 2025 - Tous droits réservés</p>
+</footer>
+
+</body>
+</html>
