@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer une Réunion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #54BD95;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #45a684;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Créer une Réunion</h2>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <label>Description</label>
+        <input type="text" name="description" required>
+
+        <label>Coût en Coins</label>
+        <input type="number" name="coins" required>
+
+        <label>Nombre Max de Participants</label>
+        <input type="number" name="maxParticipants" value="10" required>
+
+        <label>Public </label>
+        <input type="checkbox" name="public" checked> 
+
+        <label>Date</label>
+        <input type="date" name="date" required>
+
+        <label>Heure</label>
+        <input type="time" name="heure" required>
+
+        <label>Catégorie</label>
+        <input type="text" name="categorie" required>
+
+        <label>Niveau Requis</label>
+<select name="niveau" required>
+    <option value="1">Niveau 1</option>
+    <option value="2">Niveau 2</option>
+    <option value="3">Niveau 3</option>
+    <option value="4">Niveau 4</option>
+    <option value="5">Niveau 5</option>
+</select>
+
+
+        <button type="submit">Créer la Réunion</button>
+    </form>
+</div>
+
+</body>
+</html>

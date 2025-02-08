@@ -1,0 +1,39 @@
+{% for course in courses %}
+    <div class="course-card">
+        <div class="course-details">
+            <h3>{{ course.titre }}</h3>
+            <p>{{ course.description }}</p>
+            <div class="course-header">
+                <span>{{ course.date }} {{ course.heure }}</span>
+                <span class="course-type">{{ course.categorie }}</span>
+            </div>
+        </div>
+        <div class="course-meta">
+            <div class="attendees"><i class="fas fa-user"></i> {{ course.maxParticipants }}</div>
+            <div class="coins">{{ course.coins }}</div>
+        </div>
+
+        <!-- Buttons Section -->
+        <div class="course-actions">
+            {% if category == "Active Courses" %}
+            <button class="join-btn" onclick="joinCourse('{{ course.id }}')">Join</button>
+            {% elif category == "Explore Courses" %}
+            <button class="join-btn" onclick="joinCourse('{{ course.id }}')">Join</button>
+            <button class="agenda-btn" onclick="addToAgenda('{{ course.id }}')">Add to Agenda</button>
+            {% elif category == "Completed Courses" and course.host != user %}
+            <!-- Star Rating System -->
+             <!-- Star Rating System -->
+             <!-- Star Rating System -->
+<div class="rating" data-course="{{ course.id }}">
+    {% for i in "12345" %}
+        <i class="fas fa-star star" data-course="{{ course.id }}" data-rate="{{ forloop.counter }}"></i>
+    {% endfor %}
+</div>
+<p class="course-rating">Current Rating: {{ course.rating|floatformat:1 }} ⭐</p>
+
+            {% endif %}
+        </div>
+    </div>
+{% empty %}
+    <div class="no-results">No Results</div>
+{% endfor %}

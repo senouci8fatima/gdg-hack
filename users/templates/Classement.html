@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    {{ questions|json_script:"questions-data" }}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        .sidebar {
+            background: #54BD95;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: fixed;
+            width: 80px;
+            height: 90vh;
+            top: 5%;
+            left: 10px;
+            border-radius: 10px;
+            padding-top: 10px;
+            transition: width 0.3s;
+            justify-content: space-between;
+        }
+
+        /* Logo Button */
+        .logo {
+            font-size: 20px;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .logo i {
+            font-size: 22px;
+        }
+
+        /* Adds space between logo and menu */
+        .spacer {
+            flex-grow: 0.5;
+        }
+
+        /* Sidebar Buttons */
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+            width: 100%;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .sidebar a i {
+            font-size: 20px;
+            text-align: center;
+        }
+
+        /* Hover Effect */
+        .sidebar a:hover {
+            background: #495057;
+        }
+
+        /* User Profile */
+        .profile {
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        /* Header */
+        header {
+            padding: 15px 30px;
+            display: flex;
+            justify-content: flex-end; /* Align items to the right */
+            align-items: center;
+            width: 90%;
+            position: fixed;
+            top: 0;
+            left: 110px;
+            height: 60px;
+            border-radius: 100px;
+        }
+
+        /* Level & Coins Buttons */
+        .user-info {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .user-info button {
+            background:#FFC728;
+            border: 2px solid  #FFC728;
+            color: white;
+            padding: 8px 12px;
+            font-size: 14px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+            cursor: default;
+        }
+
+        .user-info button i {
+            font-size: 16px;
+            color: white;
+        }
+        .coins-value {
+            background:white;
+            border: 2px solid  #FFC728;
+            color:black;
+            padding: 8px 12px;
+            font-size: 14px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+            cursor: default;
+        }
+        .coins-value i{
+            font-size: 16px;
+            color:  #FFC728;
+        }
+        section {
+            margin-top: 20px;
+            padding: 20px;
+            color: black;
+        }
+
+.content        button {
+            padding: 10px;
+            background: #FFC728;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+.content {
+    flex: 1;
+    margin-left: 90px;
+    margin-top: 20px;
+    padding: 20px;
+    text-align: left; /* Align text to the left */
+    display: flex;
+    align-items: flex-start; /* Align to the top */
+    justify-content: flex-start; /* Align everything to the top */
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Welcome Section */
+.welcome-section {
+    margin-left: 30px; /* Space from sidebar */
+    text-align: left;
+    padding-top: 10px; /* Small gap from header */
+}
+
+.welcome-section h3 {
+    font-size: 32px; /* Bigger title */
+    font-weight: bold;
+    color: #333;
+}
+
+.welcome-section p {
+    font-size: 18px;
+    color: #555;
+}
+
+
+.Search-Bar {
+    border-radius: 44px;
+    padding: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center; /* Assure l'alignement vertical */
+    width: 70%;
+   
+    margin: 0 auto; /* Centre la barre de recherche */
+    background: white;
+    border: 2px solid #FFC728;
+    color: black;
+    margin-bottom: 30px;
+}
+
+.Search-Bar input {
+    border: none;
+    width: 80%;
+    padding-left: 10px;
+    outline: none; /* Enlève l'effet de focus bleu par défaut */
+    background: transparent; /* Assure que le fond reste blanc */
+}
+
+
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #fffbe6;
+  border: 2px solid #ffe680;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.name-section {
+  background-color: #ffce54;
+  padding: 5px 10px;
+  border-radius: 5px 0 0 5px;
+  font-weight: bold;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+}
+
+.profile-body {
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.badge-icon {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+}
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap; /* Permet de passer à la ligne si nécessaire */
+    gap: 20px; /* Espace entre les cartes */
+    justify-content: flex-start; /* Aligne les cartes à gauche */
+    padding: 20px; /* Espacement interne */
+    margin-bottom: 100px;
+    margin-top: 20px;
+    margin-left: 70px;
+}
+
+
+    </style>
+</head>
+<body>
+
+    {% include "components/sideBar.html" %}
+    
+    <!-- Main Content -->
+    <div class="content">
+        <header>
+            <div class="user-info">
+                <button><i class="fas fa-star"></i> Level {{user.level}}</button>
+                <button class="coins-value"><i class="fas fa-coins"></i> {{user.coins}}</button>
+            </div>
+        </header>
+    
+        <section class="welcome-section">
+            <h3>Top Learners & Mentors </h3>
+            <p>See who’s leading the SkillSwap community! Earn coins, level up, and climb the rank</p>
+        </section>
+    
+        <div class="Search-Bar">
+            <input type="text" id="search-input" placeholder="Search a field...">
+            <i class="fas fa-search" id="search-btn"></i>
+        </div>
+        <div style="display: flex;  justify-content: center; align-items:center ; width: 90%;">
+            <p style="color:#54BD95; font-weight: bold ; display: block;">Most Coins Earned by Teaching:</p> 
+        </div>
+
+       
+        
+        <section class="cards-container">
+            {% for mentor in mentors %}
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="name-section">
+                        <span class="label">Name :</span> {{ mentor.name }}
+                    </div>
+                    
+                </div>
+                <div class="profile-body">
+                    <p><span class="label">Skills Taught :</span> {{ mentor.skills }}</p>
+                    <p><span class="label">Coins Earned :</span> {{ mentor.coins }}</p>
+                    <p><span class="label">Badges :</span> {{ mentor.badges }}</p>
+                </div>
+                
+            </div>
+            {% endfor %}
+        </section>
+        
+
+</div>
+
+   </div>
+
+
+</body>

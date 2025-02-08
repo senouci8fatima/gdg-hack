@@ -1,0 +1,189 @@
+
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Connexion</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: Arial, sans-serif;
+            }
+    
+            body {
+                display: flex;
+                min-height: 100vh;
+                background-color: #f8f9fa;
+            }
+    
+            .sidebar {
+                background: #54BD95;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: fixed;
+                width: 80px;
+                height: 95vh;
+                top: 5%;
+                left: 10px;
+                border-radius: 50px !important; 
+                padding-top: 10px;
+                transition: width 0.3s;
+                justify-content: space-between;
+                
+            }
+    
+           
+    
+    .sidebar .content {
+        flex: 1;
+        margin-left: 90px;
+        padding: 20px;
+        text-align: left; /* Align text to the left */
+        display: flex;
+        align-items: flex-start; /* Align to the top */
+        justify-content: flex-start; /* Align everything to the top */
+        flex-direction: column;
+        width: 100%;
+    }
+    
+   .sidebar img
+    {
+        width: 25px !important;; 
+        height: 25px !important;; 
+        transition: transform 0.3s !important;
+    }
+    .sidebar .flex
+    {
+        display: flex;
+        flex-direction: column;
+        margin-left: 20px;
+        margin-top: 100px;
+        gap: 10px;
+    }
+  .sidebar  .icon-button {
+    border: none !important;;
+    padding: 0 !important;;
+    cursor: pointer !important;;
+}
+
+
+.icon-button:hover img {
+    transform: scale(1.1);
+    background-color: transparent;
+}
+.sidebar button
+{
+    margin-right: 20px !important;;
+    text-align: center !important;;
+    background:none !important;
+}
+.sidebar button:hover
+{
+  background-color: transparent;}
+
+  .sidebar a
+  {
+    width: 50px;
+
+  }
+  .sidebar a:hover
+  {
+    background-color: #54BD95;
+  }
+  .icon-button {
+    position: relative !important;;
+    border: none !important;;
+    padding: 0 !important;;
+    cursor: pointer !important;;
+    background: none !important;;
+}
+
+.icon-button::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px; /* Adjust as needed */
+    width: 0;
+    height: 2px; /* Thickness of the underline */
+    background-color: #FFC728 ;
+    transition: width 0.3s;
+}
+
+.icon-button:focus::after {
+    width: 100%;
+}
+ .sidebar .logo 
+{
+    margin-left: 0px !important;;
+    position: absolute !important;;
+    width: 65px !important;
+    height: 70px !important;
+}
+
+  
+        </style>
+    </head>
+    <body>
+    
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Logo Button -->
+        <img class="logo" src="{% static 'images/logo.png' %}" alt="Share"> 
+
+        <div class="flex">
+            <a href="{% url 'HomePage' %}">
+            <button class="icon-button">
+                <img src="{% static 'images/dash.png' %}" alt="Dashboard">
+            </button></a>
+            <a href="{% url 'classement' %}">
+                <button class="icon-button">
+                    <img src="{% static 'images/leader.png' %}" alt="Classement">
+                </button>
+            </a>
+            <a href="{% url 'CoursesPage' %}">
+                <button class="icon-button">
+                    <img src="{% static 'images/cours.png' %}" alt="Classement">
+                </button>
+            </a>
+            <a href="{% url 'challenges' %}">
+                <button class="icon-button">
+                    <img src="{% static 'images/quiz.png' %}" alt="Classement">
+                </button>
+            </a>           <a href="{% url 'help' %}">
+                <button class="icon-button">
+                    <img src="{% static 'images/questions.png' %}" alt="Classement">
+                </button>
+            </a>
+            <a href="{% url 'create_meet' %}">
+                <button class="icon-button">
+                    <img src="{% static 'images/meet.png' %}" alt="Classement">
+                </button></a>
+            <button class="icon-button">
+                <img src="{% static 'images/notif.png' %}" alt="Notifications">
+            </button>
+            <a href="{% url 'rewards' %}">
+                <button class="icon-button">
+                    <img src="{% static 'images/profile.png' %}" alt="Classement">
+                </button>
+            </a>
+            
+            </button>
+        </div>
+                <!-- Sidebar Menu -->
+    
+        <!-- User Profile at Bottom -->
+        
+    </div>
+    
+    <!-- Main Content -->
+    
+    </body>
+    </html>   
+

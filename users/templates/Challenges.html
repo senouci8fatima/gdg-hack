@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    {{ questions|json_script:"questions-data" }}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        .sidebar {
+            background: #54BD95;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: fixed;
+            width: 80px;
+            height: 90vh;
+            top: 5%;
+            left: 10px;
+            border-radius: 10px;
+            padding-top: 10px;
+            transition: width 0.3s;
+            justify-content: space-between;
+        }
+
+        /* Logo Button */
+        .logo {
+            font-size: 20px;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .logo i {
+            font-size: 22px;
+        }
+
+        /* Adds space between logo and menu */
+        .spacer {
+            flex-grow: 0.5;
+        }
+
+        /* Sidebar Buttons */
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+            width: 100%;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .sidebar a i {
+            font-size: 20px;
+            text-align: center;
+        }
+
+        /* Hover Effect */
+        .sidebar a:hover {
+            background: #495057;
+        }
+
+        /* User Profile */
+        .profile {
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        /* Header */
+        header {
+            padding: 15px 30px;
+            display: flex;
+            justify-content: flex-end; /* Align items to the right */
+            align-items: center;
+            width: 90%;
+            position: fixed;
+            top: 0;
+            left: 110px;
+            height: 60px;
+            border-radius: 100px;
+        }
+
+        /* Level & Coins Buttons */
+        .user-info {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .user-info button {
+            background:#FFC728;
+            border: 2px solid  #FFC728;
+            color: white;
+            padding: 8px 12px;
+            font-size: 14px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+            cursor: default;
+        }
+
+        .user-info button i {
+            font-size: 16px;
+            color: white;
+        }
+        .coins-value {
+            background:white;
+            border: 2px solid  #FFC728;
+            color:black;
+            padding: 8px 12px;
+            font-size: 14px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+            cursor: default;
+        }
+        .coins-value i{
+            font-size: 16px;
+            color:  #FFC728;
+        }
+        section {
+            margin-top: 80px;
+            padding: 50px;
+            color: black;
+        }
+
+       
+
+        .quiz-card{
+              display: none; /* Caché par défaut */
+    margin: 20px auto; /* Centrer horizontalement */
+    background: white;
+    border: 2px solid #54BD95;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrage vertical */
+    align-items: center; /* Centrage horizontal */
+    text-align: center; /* Centrer le texte */
+    color: black;
+    width: 30%;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.quiz-card h3 {
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.quiz-icon {
+    font-size: 40px;
+    color: #54BD95;
+}
+
+       
+        .content button {
+            padding: 10px;
+            background: #FFC728;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+/* Content Layout Fix */
+.content {
+    flex: 1;
+    margin-left: 90px;
+    padding: 20px;
+    text-align: left; /* Align text to the left */
+    display: flex;
+    align-items: flex-start; /* Align to the top */
+    justify-content: flex-start; /* Align everything to the top */
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Welcome Section */
+.welcome-section {
+    margin-left: 120px !important; /* Space from sidebar */
+    text-align: left;
+    padding-top: 10px; /* Small gap from header */
+}
+
+.welcome-section h3 {
+    font-size: 32px; /* Bigger title */
+    font-weight: bold;
+    color: #333;
+}
+
+.welcome-section p {
+    font-size: 18px;
+    color: #555;
+}
+
+.Organiser{ 
+    border-radius: 12px;
+    width: 90%;
+    margin-left: 60px;
+    margin-bottom: 20px;
+    border: 2px solid #54BD95;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+    height:60% ;
+}
+
+.Search-Bar {
+    border-radius: 44px;
+    padding: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center; /* Assure l'alignement vertical */
+    width: 70%;
+   
+    margin: 0 auto; /* Centre la barre de recherche */
+    background: white;
+    border: 2px solid #FFC728;
+    color: black;
+    margin-bottom: 30px;
+}
+
+.Search-Bar input {
+    border: none;
+    width: 80%;
+    padding-left: 10px;
+    outline: none; /* Enlève l'effet de focus bleu par défaut */
+    background: transparent; /* Assure que le fond reste blanc */
+}
+
+#question-container{
+    display: none; /* Caché par défaut */
+   justify-content: center;
+    border-radius: 12px;
+    width: 90%;
+    margin-left: 60px;
+    margin-bottom: 20px;
+    border: 2px solid #54BD95;
+    padding: 20px;
+    height:60% ;
+}
+
+#add-question-form {
+    display: none; /* Caché par défaut */
+    display: flex; /* Active Flexbox */
+    flex-direction: column; /* Organise les éléments en colonne */
+    align-items: center; /* Centre horizontalement */
+    justify-content: center; /* Centre verticalement */
+    margin-left: 60px ;
+    margin-top: 20px;
+    border-radius: 12px;
+    width: 90%;
+    border: 2px solid #54BD95;
+    height: 60%;
+    padding: 20px;
+    background-color: #fff; /* Facultatif : ajoute un fond blanc pour la lisibilité */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Facultatif : ajoute une légère ombre */
+}
+
+#add-question-form input
+{
+    margin: 10px;
+}
+#add-question-form button
+{
+    margin: 20px;
+}
+#add-question-form h3
+{
+    margin: 20px;
+}
+
+#add-test-btn {
+    align-self: flex-end;
+    margin-right: 20px; /* Ajoute un petit espace depuis le bord droit */
+}
+.diamonds
+{
+    position:absolute;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+ 
+    {% include "components/sideBar.html" %}
+
+    <!-- Main Content -->
+    <div class="content">
+        <header>
+            <div class="user-info">
+                <button><i class="fas fa-star"></i> Level {{user.level}}</button>
+                <button class="coins-value"><i class="fas fa-coins"></i> {{user.coins}}</button>
+            </div>
+        </header>
+        <img class="diamonds" src="{% static 'images/diamonds.png' %}" alt="Share">
+
+        <section class="welcome-section">
+            <h3>SkillSwap Challenges – Learn, Teach & Earn!</h3>
+            <p>Take on exciting challenges, improve your skills, and earn extra coins!.</p>
+        </section>
+    
+        <div class="Search-Bar">
+            <input type="text" id="search-input" placeholder="Search a field...">
+            <i class="fas fa-search" id="search-btn"></i>
+        </div>
+        
+    
+        <!-- Conteneur des quiz -->
+        <div class="Organiser">
+            <div class="quiz-card" id="qcm-container">
+                <i class="fas fa-question-circle quiz-icon"></i>
+                <h3>QCM</h3>
+                <p>2<i class="fas fa-coins"></i></p>
+                <br>
+                <button class="quiz-btn" data-category="qcm">Jouer</button>
+            </div>
+    
+            <div class="quiz-card" id="qcu-container">
+                <i class="fas fa-check-circle quiz-icon"></i>
+                <h3>QCU</h3>
+                <p> 2 <i class="fas fa-coins"></i></p>
+                <br>
+                <button class="quiz-btn" data-category="qcu">Jouer</button>
+            </div>
+    
+            <div class="quiz-card" id="vf-container">
+                <i class="fas fa-balance-scale quiz-icon"></i>
+                <h3>Vrai ou Faux</h3>
+                <p> 2 <i class="fas fa-coins"></i> </p>
+                <br>
+                <button class="quiz-btn" data-category="vraiFaux">Jouer</button>
+            </div>
+        </div>
+    
+        <!-- Conteneur des questions -->
+        <div id="question-container">
+            
+        </div>
+        
+
+<button id="add-test-btn">Add a test </button>
+
+<div id="add-question-form" style="display: none;">
+    <h3>Ajouter une Question</h3>
+    <label>Type de question :</label>
+    <select id="question-type">
+        <option value="QCM">QCM</option>
+        <option value="QCU">QCU</option>
+        <option value="VF">Vrai/Faux</option>
+    </select>
+    <br>
+    <label>Texte de la question :</label>
+    <input type="text" id="question-text" required>
+
+    <label>Module :</label>
+    <input type="text" id="question-module" required>
+
+    <div id="choices-container">
+        <label>Choix de réponse :</label>
+        <div class="choice">
+            <input type="text" class="choice-text" required>
+            <input type="checkbox" class="is-correct"> Correct
+        </div>
+    </div>
+
+    <button id="add-choice">Ajouter un choix</button>
+    <button id="save-question">Enregistrer</button>
+</div>
+
+        
+    
+    </div>
+    <script>
+
+        document.getElementById("search-btn").addEventListener("click", function () {
+            const searchValue = document.getElementById("search-input").value.trim();
+            if (searchValue !== "") {
+                module = searchValue; // Met à jour la variable module
+                console.log("Module set to:", module);
+                // Rafraîchir les questions si nécessaire
+            }
+        });
+        
+                // Charger les questions envoyées par Django dans une variable JavaScript
+                const questions = JSON.parse(document.getElementById('questions-data').textContent);
+                let module = ""
+            
+                let currentQuestionIndex = 0;
+                let lives = 3;
+                let currentCategory = "";
+            
+                document.querySelectorAll(".quiz-btn").forEach(button => {
+            button.addEventListener("click", () => {
+                currentCategory = button.getAttribute("data-category");
+                currentQuestionIndex = 0;
+                loadQuestion();
+            });
+        });
+        
+                function loadQuestion() {
+                    document.getElementById("question-container").style.display = "block";
+                    const container = document.getElementById("question-container");
+            
+                    // Filtrer les questions par catégorie
+                    let categoryQuestions = []; 
+        if (module !== '') {
+            const moduleQuestions = questions.filter(q => q.module.toLowerCase() === module.toLowerCase());
+            categoryQuestions = moduleQuestions.filter(q => q.type.toLowerCase() === currentCategory);
+        } else {
+            categoryQuestions = questions.filter(q => q.type.toLowerCase() === currentCategory);
+        }
+        
+                   
+                   
+                    if (categoryQuestions.length === 0) {
+                        alert("Aucune question disponible pour cette catégorie !");
+                        return;
+                    }
+            
+                    const questionData = categoryQuestions[currentQuestionIndex];
+                    let htmlContent = '<div id="lives">❤️❤️❤️</div>';
+                    htmlContent += `<p>${questionData.question}</p>`;
+            
+                    if (questionData.type === "QCM") {
+                        questionData.choices.forEach(choice => {
+                            htmlContent += `<div>
+                                <input type="checkbox" name="qcm" value="${choice.text}"> ${choice.text}
+                            </div>`;
+                        });
+                        htmlContent += `<button onclick="checkAnswer()">Valider</button>`;
+                    } else if (questionData.type === "QCU") {
+                        questionData.choices.forEach(choice => {
+                            htmlContent += `<div>
+                                <input type="radio" name="qcu" value="${choice.text}"> ${choice.text}
+                            </div>`;
+                        });
+                        htmlContent += `<button onclick="checkAnswer()">Valider</button>`;
+                    } else if (questionData.type === "VF") {
+                        htmlContent += `<button onclick="checkAnswer(true)">Vrai</button>`;
+                        htmlContent += `<button onclick="checkAnswer(false)">Faux</button>`;
+                    }
+            
+                    container.innerHTML = htmlContent;
+                }
+            
+                function checkAnswer(playerAnswer = null) {
+            const categoryQuestions = questions.filter(q => q.type.toLowerCase() === currentCategory.toLowerCase());
+        
+         
+            // Vérifier si on a bien une question valide
+            if (currentQuestionIndex >= categoryQuestions.length) {
+                console.error("❌ Erreur : Index hors limites !");
+                return;
+            }
+        
+            const questionData = categoryQuestions[currentQuestionIndex];
+        
+            console.log("Current Question Data:", questionData);
+        
+            if (!questionData) {
+                console.error("❌ Erreur : Aucune question trouvée !");
+                return;
+            }
+        
+            let isCorrect = false;
+        
+            if (playerAnswer !== null) {
+                isCorrect = playerAnswer === (questionData.choices.find(choice => choice.is_correct)?.text);
+            } else if (questionData.type === "QCM") {
+                const selectedOptions = Array.from(document.querySelectorAll("input[name='qcm']:checked")).map(input => input.value);
+                const correctOptions = questionData.choices.filter(choice => choice.is_correct).map(choice => choice.text);
+                isCorrect = arraysEqual(selectedOptions, correctOptions);
+            } else {
+                const selectedOption = document.querySelector("input[name='qcu']:checked");
+                isCorrect = selectedOption && selectedOption.value === (questionData.choices.find(choice => choice.is_correct)?.text);
+            }
+        
+            if (isCorrect) {
+                alert("Bonne réponse ! 🎉");
+            } else {
+                lives--;
+                updateLives();
+                alert("Mauvaise réponse ! ❌");
+            }
+        
+            if (lives > 0) {
+                if (currentQuestionIndex < categoryQuestions.length - 1) {
+                    currentQuestionIndex++;
+                    setTimeout(loadQuestion, 500);
+                } else {
+                    setTimeout(() => {
+                        document.getElementById("question-container").style.display = "none";
+                        addCoinsToDatabase();  // Envoyer la mise à jour au serveur
+        
+                        alert("Félicitations, vous avez terminé cette catégorie !");
+                    }, 500);
+                }
+            } else {
+                setTimeout(() => {
+                    document.getElementById("question-container").style.display = "none";
+                    alert("Game Over !");
+                }, 500);
+            }
+        }
+        
+        function addCoinsToDatabase() {
+            fetch("/add-coins/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": getCSRFToken(),  // Ajoute le token CSRF
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.coins !== undefined) {
+                    document.getElementById("coins-display").textContent = `💰 Coins: ${data.coins}`;
+                    alert("🎉 +2 coins ajoutés !");
+                } else {
+                    alert("Erreur lors de l'ajout des coins !");
+                }
+            })
+            .catch(error => console.error("Erreur:", error));
+        }
+        
+        // Fonction pour récupérer le token CSRF
+        function getCSRFToken() {
+            return document.cookie.split("; ").find(row => row.startsWith("csrftoken="))?.split("=")[1];
+        }
+        
+        
+                function arraysEqual(a, b) {
+                    if (!Array.isArray(a) || !Array.isArray(b)) return false;
+                    if (a.length !== b.length) return false;
+                    return [...a].sort().join(',') === [...b].sort().join(',');
+                }
+            
+                function updateLives() {
+                    const livesElement = document.getElementById("lives");
+                    if (livesElement) {
+                        livesElement.innerHTML = '❤️'.repeat(lives);
+                    }
+                }
+        
+        
+        
+                document.getElementById("add-test-btn").addEventListener("click", function () {
+            document.getElementById("add-question-form").style.display = "block";
+        });
+        
+        
+        
+        // Ajouter un nouveau champ de choix
+        document.getElementById("add-choice").addEventListener("click", function () {
+            const container = document.getElementById("choices-container");
+            const div = document.createElement("div");
+            div.classList.add("choice");
+            div.innerHTML = `
+                <input type="text" class="choice-text" required>
+                <input type="checkbox" class="is-correct"> Correct
+                <button class="remove-choice">❌</button>
+            `;
+            container.appendChild(div);
+        
+            // Supprimer un choix
+            div.querySelector(".remove-choice").addEventListener("click", function () {
+                div.remove();
+            });
+        });
+        
+        document.getElementById("save-question").addEventListener("click", function () {
+            const questionText = document.getElementById("question-text").value;
+            const questionType = document.getElementById("question-type").value;
+            const questionModule = document.getElementById("question-module").value;
+            const choices = Array.from(document.querySelectorAll(".choice")).map(choice => ({
+                text: choice.querySelector(".choice-text").value.trim(), // Vérifie que c'est bien une string
+                is_correct: choice.querySelector(".is-correct").checked
+            }));
+        
+            if (!questionText || !questionModule || choices.length === 0 || choices.some(c => c.text === "")) {
+                alert("Veuillez remplir tous les champs !");
+                return;
+            }
+        
+            const data = {
+                question: questionText,
+                type: questionType,
+                choices: choices,
+                module : questionModule 
+            };
+        
+            console.log("Données envoyées :", data); // 🔍 Vérifie dans la console du navigateur
+        
+            fetch("/add-question/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCSRFToken()
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                alert(result.message);
+                       // Effacer manuellement les champs
+                       document.getElementById("question-text").value = "";
+                document.getElementById("question-type").value = "";
+                document.getElementById("choices-container").innerHTML = ""; // Supprime les choix
+        
+        
+                document.getElementById("add-question-form").style.display = "none";
+            })
+            .catch(error => console.error("Erreur:", error));
+        });
+        
+        
+        // Fonction pour récupérer le token CSRF
+        function getCSRFToken() {
+            return document.cookie.split("; ").find(row => row.startsWith("csrftoken"))?.split("=")[1];
+        }
+            </script>
+        

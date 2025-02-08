@@ -1,6 +1,14 @@
+import json
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+from django.http import HttpResponseBadRequest, JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.timezone import now, timedelta
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.timezone import now, timedelta
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth.decorators import login_required
 
 
 class Reward(models.Model):
@@ -31,34 +39,22 @@ class Etudiant(AbstractUser):
     coins = models.IntegerField(default=5)  # Monnaie virtuelle ou points de l'étudiant
     rewards = models.ManyToManyField(Reward, related_name="students", blank=True)  # Récompenses de l'étudiant
 
+    def update_rating(self):
+        """Calculate instructor's new rating based on courses they hosted"""
+        hosted_meets = Meet.objects.filter(host=self)
+        all_ratings = [meet.rating for meet in hosted_meets if meet.rating > 0]
+
+        if all_ratings:
+            self.rate = sum(all_ratings) / len(all_ratings)
+        else:
+            self.rate = 0.0
+        self.save()
+
     def __str__(self):
         return f"Étudiant: {self.first_name} {self.last_name}"
 
-
     
-class Meet(models.Model):
-    link = models.URLField()  # Lien de la réunion (ex: Zoom, Google Meet)
-    description = models.TextField()  # Description de la réunion
-    coins = models.IntegerField(default=0)  # Coût en coins pour rejoindre la réunion
-    maxParticipants = models.IntegerField(default=10)  # Nombre max de participants
-    public = models.BooleanField(default=True)  # Indique si la réunion est publique ou privée
-    date = models.DateField()  # Date de la réunion
-    heure = models.TimeField()  # Heure de la réunion
-    module = models.CharField(max_length=255)  # Nom du module associé à la réunion
-    niveau = models.IntegerField(default=1)  # Niveau requis pour rejoindre la réunion
-    host = models.ForeignKey(Etudiant, on_delete=models.CASCADE, related_name="meets") 
-    comingSoon = models.BooleanField(default=False)  # Indique si la réunion est publique ou privée
-
-    def save(self, *args, **kwargs):
-        """ Met à jour automatiquement comingSoon si la réunion est demain """
-        if self.date == (now().date() + timedelta(days=1)):  
-            self.comingSoon = True  
-        else:
-            self.comingSoon = False  
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return f"Meet: {self.module} - {self.date} à {self.heure} ({'Public' if self.public else 'Privé'})"
+    
   
 class Demande(models.Model):
     description = models.TextField()  # Description de la réunion
@@ -130,4 +126,64 @@ class Reponse(models.Model):
 
     def __str__(self):
         return f"Réponse by {self.repondeur.username} on {self.demande.titre}"
+class Question(models.Model):
+    TYPE_CHOICES = [
+        ('QCM', 'Question à choix multiple'),
+        ('QCU', 'Question à choix unique'),
+        ('VF', 'Vrai ou Faux'),
+    ]
+
+    question_text = models.TextField() 
+    type = models.CharField(max_length=3, choices=TYPE_CHOICES)
+
+    def __str__(self):
+        return self.question_text
+
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='choices')
+    text = models.CharField(max_length=255)
+    is_correct = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.text
+class Meet(models.Model):
+    link = models.URLField()  # Lien de la réunion (ex: Zoom, Google Meet)
+    description = models.TextField()  # Description de la réunion
+    coins = models.IntegerField(default=0)  # Coût en coins pour rejoindre la réunion
+    maxParticipants = models.IntegerField(default=10)  # Nombre max de participants
+    nbJoined = models.IntegerField(default=0)  # Nombre max de participants
+    public = models.BooleanField(default=True)  # Indique si la réunion est publique ou privée
+    date = models.DateField()  # Date de la réunion
+    heure = models.TimeField()  # Heure de la réunion
+    categorie = models.CharField(max_length=255)  # Nom du module associé à la réunion
+    titre = models.CharField(max_length=255)  # Nom du module associé à la réunion
+    niveau = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(5)])  # Restrict niveau to 1-5
+    host = models.ForeignKey(Etudiant, on_delete=models.CASCADE, related_name="meets") 
+    comingSoon = models.BooleanField(default=False)  # Indique si la réunion est publique ou privée
+    membersInAgenda = models.ManyToManyField(Etudiant, related_name="added_to_their_agendas", blank=True)  # Étudiants ayant rejoint le groupe
+    rating = models.FloatField(default=0.0)  # Average rating of the course
+    ratings_count = models.IntegerField(default=0)  # Number of people who rated
+
+    def save(self, *args, **kwargs):
+        """Automatically update 'comingSoon' if the meeting is tomorrow"""
+        if self.date == (now().date() + timedelta(days=1)):
+            self.comingSoon = True
+        else:
+            self.comingSoon = False
+        super().save(*args, **kwargs)
+
+    def add_rating(self, new_rating):
+        """Update the course rating and update the instructor's rating"""
+        total_score = self.rating * self.ratings_count
+        self.ratings_count += 1
+        self.rating = (total_score + new_rating) / self.ratings_count
+        self.save()
+
+        # Update the instructor's rating
+        self.host.update_rating()
+
+    def __str__(self):
+        return f"Meet: {self.categorie} - {self.date} at {self.heure} ({'Public' if self.public else 'Private'})"
+
+
 from django.db import models

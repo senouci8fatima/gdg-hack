@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
@@ -19,23 +20,71 @@
             min-height: 100vh;
             background-color: #f8f9fa;
         }
-
-        .sidebar {
-            background: #54BD95;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: fixed;
-            width: 80px;
-            height: 90vh;
-            top: 5%;
-            left: 10px;
-            border-radius: 10px;
-            padding-top: 10px;
-            transition: width 0.3s;
-            justify-content: space-between;
-        }
-
+/* Sidebar                  */
+    /* ------------------------ */
+    .sidebar {
+      background: #54BD95;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: fixed;
+      width: 80px;
+      height: 90vh;
+      top: 5%;
+      left: 10px;
+      border-radius: 10px;
+      padding-top: 10px;
+      transition: width 0.3s;
+      justify-content: space-between;
+    }
+    
+    .logo {
+      font-size: 20px;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+    
+    .logo i {
+      font-size: 22px;
+    }
+    
+    .spacer {
+      flex-grow: 0.5;
+    }
+    
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      width: 100%;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+    }
+    
+    .sidebar a i {
+      font-size: 20px;
+      text-align: center;
+    }
+    
+    .sidebar a:hover {
+      background: #495057;
+    }
+    
+    .profile {
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+    }
+    
+    .profile img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
         /* Logo Button */
         .logo {
             font-size: 20px;
@@ -53,28 +102,9 @@
             flex-grow: 0.5;
         }
 
-        /* Sidebar Buttons */
-        .sidebar a {
-            text-decoration: none;
-            color: white;
-            width: 100%;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-        }
+      
 
-        .sidebar a i {
-            font-size: 20px;
-            text-align: center;
-        }
-
-        /* Hover Effect */
-        .sidebar a:hover {
-            background: #495057;
-        }
-
+     
         /* User Profile */
         .profile {
             width: 100%;
@@ -180,8 +210,9 @@
 
 /* Welcome Section */
 .welcome-section {
-    margin-left: 30px; /* Space from sidebar */
+    margin-left: 10px; /* Space from sidebar */
     text-align: left;
+    margin-top: 40px;
     padding-top: 10px; /* Small gap from header */
 }
 
@@ -195,34 +226,49 @@
     font-size: 18px;
     color: #555;
 }
+.graphes img
+{
+    width: 300px;
+}
+.graphes .g2
+{
+    margin-left: 20px;
+}
+.graphes .g2
+{
+    margin-right: 40px;
+}
+
+.graphes
+{
+    display: flex;
+    gap: 40px;
+    margin-left: 150px;
+    margin-bottom: 100px;
+}
 
 
-    </style>
+.ff
+{
+    display: flex;
+    flex-direction: column;
+}
+h3 span
+{
+    color: #54BD95;
+}
+.d
+{
+    height: 20px;
+    width: 20px;
+}    </style>
 </head>
 <body>
 
 <!-- Sidebar -->
-<div class="sidebar">
-    <!-- Logo Button -->
-    <a href="#" class="logo">
-        <i class="fas fa-arrow-left"></i>
-    </a>
+{% include "components/sideBar.html" %}
 
-    <!-- Space after logo -->
-    <div class="spacer"></div>
-
-    <!-- Sidebar Menu -->
-    <a href="#"><i class="fas fa-home"></i> </a>
-    <a href="#"><i class="fas fa-envelope"></i> </a>
-    <a href="#"><i class="fas fa-cog"></i> </a>
-    <a href="#"><i class="fas fa-sign-out-alt"></i> </a>
-
-    <!-- User Profile at Bottom -->
-    <div class="profile">
-        <a href="#"><i class="fas fa-user"></i> </a>
-    </div>
-</div>
-
+<div class="ff">
 <!-- Main Content -->
 <div class="content">
     <header>
@@ -236,9 +282,17 @@
     </header>
 
     <section class="welcome-section">
-        <h3>Welcome Back, {{user.username}}!</h3>
+        <h3>Welcome Back, <span>{{user.username}}</span>!</h3>
         <p>Here’s a snapshot of your progress and achievements on SkillSwap.</p>
     </section>
+</div>
+<div class="graphes">
+    <img class="g1" src="{% static 'images/g1.png' %}" alt="Share">  
+    <img class="g2" src="{% static 'images/g2.png' %}" alt="Share"> 
+    <img class="g3" src="{% static 'images/g3.png' %}" alt="Share">    
+</div>
+<img class="d" src="{% static 'images/d.png' %}" alt="Share">    
+
 </div>
 
 </body>

@@ -2,6 +2,8 @@
 <html lang="fr">
 <head>
     {% load static %}
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +11,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
+            background-color: white;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -25,40 +27,91 @@
             max-width: 400px;
         }
         h2 {
-            text-align: center;
             margin-bottom: 20px;
-            color: #333;
+            color: #54BD95;
+            font-size: 30px;
+            font-family: 'Baloo 2', sans-serif;
+
         }
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            margin-top: 30px;
         }
         .form-group label {
             display: block;
-            font-size: 14px;
+            font-size: 16px;
             margin-bottom: 5px;
-            color: #555;
+            font-weight: bold;
         }
         .form-group input {
-            width: 100%;
+            width: 360px;
             padding: 10px;
+            border: 1px solid #54BD95;
             font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            transition: border-color 0.3s;
-        }
-        .form-group input:focus {
-            border-color: #4CAF50;
-            outline: none;
+            border-radius: 4px;
         }
         .form-group input[type="submit"] {
-            background-color: #4CAF50;
+            background-color: #54BD95;
+            font-weight: bold;
+            padding-top: 4px;
+            text-align: center;
+            font-size: 20px;
+            font-family: 'Baloo 2', sans-serif;
+            margin-left: 120px;
             color: white;
             cursor: pointer;
+            width: 140px;
+            height: 40px;
             border: none;
-            font-size: 16px;
-            font-weight: bold;
-            transition: background-color 0.3s;
         }
+        .form-group input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .logo{
+            position: absolute;
+            top: 20px;
+            width: 10%;
+            left: 40px;
+        }
+        .enter
+        {
+            font-size: 25px;
+            margin-top: 40px;
+        }
+        @keyframes half-rotation {
+            0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(45deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+        .animation
+        {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            bottom: 60px;
+            right: 100px;
+            animation: half-rotation 2s linear infinite;
+         }
+        .bg
+        {
+            z-index: -100 !important;
+            position: absolute;
+            width: 100%;
+        }
+        .d
+        {
+            position: absolute;
+            bottom: 40px;
+            left: 30px;
+        }
+
         .form-group input[type="submit"]:hover {
             background-color: #45a049;
         }
@@ -79,15 +132,23 @@
             font-size: 12px;
             margin-top: 5px;
         }
+
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Connexion</h2>
+    <img class="bg" src="{% static 'images/bg.png' %}" alt="Share">
+    <img class="logo" src="{% static 'images/logoBlack.png' %}" alt="Share">
+
+    <div>
+    
+        <h2>Hi !</h2>
+        <label class="enter">Create a new account .
+        </label>
+
         <form action="" method="POST">
             {% csrf_token %}
             <div class="form-group">
-                <label for="username">Nom d'utilisateur</label>
+                <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
             </div>
             <div class="form-group">
@@ -95,18 +156,21 @@
                 <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
-                <label for="password">Mot de passe</label>
+                <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
             <div class="form-group">
-                <label for="password2">Vérifier le mot de passe</label>
+                <label for="password2">Enter your password again</label>
                 <input type="password" id="password2" name="password2" required>
             </div>
             <div class="form-group">
-                <input type="submit" value="S'inscrire">
+                <input type="submit" value="Sign Up">
             </div>
         </form>
     </div>
+    <img class="animation" src="{% static 'images/open-enrollment.gif' %}" alt="Share">
+    <img class="d" src="{% static 'images/diamonds.png' %}" alt="Share">
+
     <script src="{% static 'js/signup.js' %}"></script>
 </body>
 </html>

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Récompenses</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* ------------------------ */
+    /* Global Styles            */
+    /* ------------------------ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    
+    body {
+      display: flex;
+      min-height: 100vh;
+      background-color: #f8f9fa;
+      padding: 20px;
+    }
+    
+    /* ------------------------ */
+    /* Sidebar                  */
+    /* ------------------------ */
+    .sidebar {
+      background: #54BD95;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: fixed;
+      width: 80px;
+      height: 90vh;
+      top: 5%;
+      left: 10px;
+      border-radius: 10px;
+      padding-top: 10px;
+      transition: width 0.3s;
+      justify-content: space-between;
+    }
+    
+    .logo {
+      font-size: 20px;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+    
+    .logo i {
+      font-size: 22px;
+    }
+    
+    .spacer {
+      flex-grow: 0.5;
+    }
+    
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      width: 100%;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+    }
+    
+    .sidebar a i {
+      font-size: 20px;
+      text-align: center;
+    }
+    
+    .sidebar a:hover {
+      background: #495057;
+    }
+    
+    .profile {
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+    }
+    
+    .profile img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+    
+    /* ------------------------ */
+    /* Header & User Info       */
+    /* ------------------------ */
+    header {
+      padding: 15px 30px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      width: 90%;
+      position: fixed;
+      top: 0;
+      left: 110px;
+      height: 60px;
+      border-radius: 100px;
+    }
+    
+    .user-info {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    
+    .user-info button {
+      background: #FFC728;
+      border: 2px solid #FFC728;
+      color: white;
+      padding: 8px 12px;
+      font-size: 14px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: bold;
+      cursor: default;
+    }
+    
+    .user-info button i {
+      font-size: 16px;
+      color: white;
+    }
+    
+    .coins-value {
+      background: white;
+      border: 2px solid #FFC728;
+      color: black;
+      padding: 8px 12px;
+      font-size: 14px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: bold;
+      cursor: default;
+    }
+    
+    .coins-value i {
+      font-size: 16px;
+      color: #FFC728;
+    }
+    
+    /* ------------------------ */
+    /* Main Content             */
+    /* ------------------------ */
+    .content {
+      flex: 1;
+      margin-left: 90px;
+      padding: 20px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    
+    .welcome-section {
+        margin: 20px;
+      margin-left: 80px !important;
+      text-align: left;
+      padding-top: 10px;
+    }
+    
+    .welcome-section h3 {
+      font-size: 32px;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .welcome-section p {
+      font-size: 18px;
+      color: #555;
+    }
+    
+    /* ------------------------ */
+    /* Search Bar               */
+    /* ------------------------ */
+    .Search-Bar {
+      border-radius: 44px;
+      padding: 10px;
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 70%;
+      margin: 0 auto;
+      background: white;
+      border: 2px solid #FFC728;
+      color: black;
+    }
+    
+    .Search-Bar input {
+      border: none;
+      width: 80%;
+      padding-left: 10px;
+      outline: none;
+      background: transparent;
+    }
+    
+    /* ------------------------ */
+    /* Rewards Container        */
+    /* ------------------------ */
+    .rewards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      width: 90%;
+      margin-left: 60px;
+    }
+    
+    .reward-card {
+      height: 170px;
+      background: #fff;
+      border: 2px solid #54BD95;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .reward-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .reward-card h3 {
+      margin-bottom: 10px;
+      font-size: 24px;
+      color: #333;
+    }
+    
+    .reward-card p {
+      margin-bottom: 15px;
+      font-size: 16px;
+      color: #555;
+    }
+    
+    .reward-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      font-size: 28px;
+      color: #54BD95;
+    }
+
+
+    /* Style pour une récompense verrouillée */
+.reward-card.locked {
+  filter: grayscale(100%);
+  opacity: 0.6;
+  position: relative;
+}
+
+/* Optionnel : un label "Locked" en bas de la carte */
+.reward-card.locked::after {
+  content: "Locked";
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+  text-align: center;
+}
+
+.needed-icon {
+  color: gray;          /* Couleur grisée pour indiquer l'aspect verrouillé ou requis */
+  margin-right: 8px;      /* Espacement entre l'icône needed et les autres icônes */
+  font-size: 28px;        /* Assure une taille cohérente avec les autres icônes */
+}
+
+/* Le fond du modal */
+.modal {
+  display: none; /* Masqué par défaut */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4); /* Fond noir transparent */
+}
+
+/* Le contenu du modal */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* Centré verticalement et horizontalement */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* Bouton de fermeture */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+}
+
+
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    {% include "components/sideBar.html" %}
+  </div>
+  
+  <!-- Main Content -->
+  <div class="content">
+    <!-- Header with User Info -->
+    <header>
+      <div class="user-info">
+        <button>
+          <i class="fas fa-star"></i> Level {{ user.level }}
+        </button>
+        <button class="coins-value">
+          <i class="fas fa-coins"></i> {{ user.coins }}
+        </button>
+      </div>
+    </header>
+    
+    <!-- Welcome Section -->
+    <section class="welcome-section">
+      <h3>🎁 Rewards!</h3>
+      <p>Here’s a snapshot of your progress and achievements on SkillShare.</p>
+    </section>
+    
+   <!-- ... Ton code HTML existant ... -->
+
+<div class="rewards-container">
+    <!-- Récompense 1 à 5 (exemple sans état verrouillé) -->
+    <div class="reward-card">
+      <h3>Reward 1</h3>
+      <p>Double coins for 24h</p>
+      <div class="reward-icons">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-coins"></i>
+      </div>
+    </div>
+    
+    <div class="reward-card">
+      <h3>Reward 2</h3>
+      <p>Organize study sessions</p>
+      <div class="reward-icons">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-users"></i>
+      </div>
+    </div>
+    
+    <div class="reward-card">
+      <h3>Reward 3</h3>
+      <p>Double coins for 48h</p>
+      <div class="reward-icons">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-coins"></i>
+      </div>
+    </div>
+    
+    <div class="reward-card">
+      <h3>Reward 4</h3>
+      <p>Reducing 50% during a week</p>
+      <div class="reward-icons">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-tag"></i>
+      </div>
+    </div>
+    
+    <div class="reward-card locked">
+      <h3>Reward 5</h3>
+      <p>Opportunities and internships</p>
+      <div class="reward-icons">
+        <span class="needed-icon" data-required-coins="30" data-required-level="7">
+            <i class="fas fa-info-circle"></i>
+          </span>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-briefcase"></i>
+      </div>
+    </div>
+    
+    <!-- Récompense Mystère verrouillée -->
+    <div class="reward-card locked" id="reward6">
+      <h3>Reward 6</h3>
+      <p>Mystery reward</p>
+      <div class="reward-icons">
+        <span class="needed-icon" data-required-coins="50" data-required-level="10">
+            <i class="fas fa-info-circle"></i>
+          </span>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-lock"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal pour afficher les informations de déblocage -->
+<div id="reward-info-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p id="reward-info-text"></p>
+    </div>
+  </div>
+  
+  
+  <!-- ... Reste de ton code ... -->
+  </div>
+</body>
+</html>
+
+<script>
+    function checkRewardUnlock() {
+  // Ces conditions sont à adapter selon tes critères
+  const requiredCoins = 50;
+  const requiredLevel = 5;
+  
+  // Supposons que ces valeurs soient fournies par Django dans ton template :
+  const userCoins = parseInt('{{ user.coins }}', 10);
+  const userLevel = parseInt('{{ user.level }}', 10);
+  
+  // Vérifie si les conditions sont remplies
+  if (userCoins >= requiredCoins && userLevel >= requiredLevel) {
+    // Déverrouille la récompense 6 en retirant la classe 'locked'
+    const reward6 = document.getElementById("reward6");
+    if (reward6) {
+      reward6.classList.remove("locked");
+    }
+  }
+}
+
+// Appelle cette fonction au chargement de la page
+document.addEventListener("DOMContentLoaded", function() {
+  checkRewardUnlock();
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Récupère toutes les icônes needed
+  const neededIcons = document.querySelectorAll('.needed-icon');
+  neededIcons.forEach(icon => {
+    icon.addEventListener('click', function() {
+      // Récupère les valeurs requises à partir des attributs data
+      const requiredCoins = icon.getAttribute('data-required-coins');
+      const requiredLevel = icon.getAttribute('data-required-level');
+      const rewardInfoText = document.getElementById('reward-info-text');
+      
+      // Met à jour le texte du modal
+      rewardInfoText.textContent = `Pour débloquer cette récompense, vous avez besoin de ${requiredCoins} coins et du niveau ${requiredLevel}.`;
+      
+      // Affiche le modal
+      document.getElementById('reward-info-modal').style.display = 'block';
+    });
+  });
+
+  // Ferme le modal lorsqu'on clique sur la croix
+  const modalClose = document.querySelector('.modal .close');
+  modalClose.addEventListener('click', function() {
+    document.getElementById('reward-info-modal').style.display = 'none';
+  });
+
+  // Optionnel : Ferme le modal lorsqu'on clique en dehors du contenu
+  window.addEventListener('click', function(event) {
+    const modal = document.getElementById('reward-info-modal');
+    if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+});
+
+
+</script>

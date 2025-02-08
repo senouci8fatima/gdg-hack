@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Connexion</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <!-- Import Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+         /* ------------------------ */
+    /* Sidebar                  */
+    /* ------------------------ */
+    .sidebar {
+      background: #54BD95;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: fixed;
+      width: 80px;
+      height: 90vh;
+      top: 5%;
+      left: 10px;
+      border-radius: 10px;
+      padding-top: 10px;
+      transition: width 0.3s;
+      justify-content: space-between;
+    }
+    
+    .logo {
+      font-size: 20px;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+    
+    .logo i {
+      font-size: 22px;
+    }
+    
+    .spacer {
+      flex-grow: 0.5;
+    }
+    
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      width: 100%;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+    }
+    
+    .sidebar a i {
+      font-size: 20px;
+      text-align: center;
+    }
+    
+    .sidebar a:hover {
+      background: #495057;
+    }
+    
+    .profile {
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+    }
+    
+    .profile img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+      
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        display: flex;
+        min-height: 100vh;
+        background-color: #f8f9fa;
+      }
+
+      .sidebar {
+        background: #54bd95;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+        width: 80px;
+        height: 90vh;
+        top: 5%;
+        left: 10px;
+        border-radius: 10px;
+        padding-top: 10px;
+        transition: width 0.3s;
+        justify-content: space-between;
+      }
+
+      /* Sidebar Buttons */
+      .sidebar a {
+        text-decoration: none;
+        color: white;
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+      }
+
+      .sidebar a i {
+        font-size: 20px;
+      }
+
+      .sidebar a:hover {
+        background: #495057;
+      }
+
+      /* Header */
+      header {
+        padding: 15px 30px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 90%;
+        position: fixed;
+        top: 0;
+        left: 110px;
+        height: 60px;
+        border-radius: 100px;
+      }
+
+      /* User Info */
+      .user-info {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+      }
+
+      .user-info button {
+        background: #ffc728;
+        border: 2px solid #ffc728;
+        color: white;
+        padding: 8px 12px;
+        font-size: 14px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-weight: bold;
+        cursor: default;
+      }
+
+      .coins-value {
+        background: white;
+        border: 2px solid #ffc728;
+        color: black;
+        padding: 8px 12px;
+        font-size: 14px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-weight: bold;
+        cursor: default;
+      }
+
+      .coins-value i {
+        font-size: 16px;
+        color: white;
+      }
+
+      .content {
+        flex: 1;
+        margin-left: 90px;
+        padding: 20px;
+        text-align: left;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 1%;
+      }
+
+      /* Welcome Section */
+      .welcome-section {
+        margin-left: 30px;
+        text-align: left;
+        padding-top: 10px;
+      }
+
+      /* 🔹 Speech Section Typography Update */
+      .Speech-section h3 {
+        font-family: Poppins, sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 40px;
+        padding: 30px 200px;
+        text-align: left;
+        margin-top: 20px;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+      }
+      .Search-Bar {
+        border-radius: 44px;
+        padding: 10px;
+        margin-bottom: 30px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center; /* Assure l'alignement vertical */
+        width: 70%;
+
+        margin: 0 auto; /* Centre la barre de recherche */
+        background: white;
+        border: 2px solid #ffc728;
+        color: black;
+        margin-bottom: 30px;
+      }
+
+      .Search-Bar input {
+        border: none;
+        width: 80%;
+        padding-left: 10px;
+        outline: none; /* Enlève l'effet de focus bleu par défaut */
+        background: transparent; /* Assure que le fond reste blanc */
+      }
+
+      .course-filter-btn {
+        border: 2px solid #54bd95;
+        border-bottom: none;
+        width: 100%;
+        text-align: center;
+        align-items: center;
+
+        border-radius: 10px 10px 0 0; /* Adjusted top corners */
+
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-weight: bold;
+        background-color: white;
+      }
+      .course-filter-btn:hover
+      {
+        cursor: pointer;
+        background-color:#54bd95;
+        color: white;
+      }
+
+      .dropdown-menu {
+    position: absolute; /* Now it will be near the button */
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 1000;
+    display: none;
+    width: 180px; /* Adjust width as needed */
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+.dropdown-option {
+    background: white;
+    border: 2px solid #ffc728; /* Yellow border */
+    color: #ffc728; /* Yellow text */
+    padding: 12px 25px;
+    margin: 8px 0;
+    border-radius: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    width: 150px;
+    font-size: 10px;
+}
+
+.dropdown-option:hover {
+    background: rgba(255, 199, 40, 0.2); /* Light yellow hover effect */
+}
+
+.dropdown-option.selected {
+    background: #ffc728; /* Fully yellow background */
+    color: white; /* White text */
+    border-color: #ffc728; /* Maintain yellow border */
+}
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 30px;
+    background: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid #54BD95;
+    width: 100%; /* Ensure full width */
+    min-height: 200px; /* Prevent collapse */
+    justify-content: center;
+    text-align: center;
+}
+.no-results {
+    grid-column: span 3;
+    font-size: 20px;
+    font-weight: bold;
+    color: #54BD95;
+    padding: 20px;
+    text-align: center;
+}
+
+
+      .course-card {
+        border: 2px solid #54bd95;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: left;
+        background: white;
+        transition: transform 0.3s ease;
+      }
+
+      .course-card:hover {
+        transform: scale(1.02);
+      }
+
+      .course-card .course-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .course-card .course-type {
+        background: #ffc728;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 0.8em;
+      }
+
+      .course-card .course-details {
+        margin-bottom: 15px;
+      }
+
+      .course-card .course-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .course-card .attendees {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: #54bd95;
+      }
+
+      .course-card .coins {
+        background: #ffc728;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 15px;
+      }
+      .course-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.join-btn, .agenda-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.join-btn {
+    background-color: #54BD95;
+    color: white;
+}
+
+.agenda-btn {
+    background-color: #FFC728;
+    color: black;
+}
+
+.join-btn:hover {
+    background-color: #45a080;
+}
+
+.agenda-btn:hover {
+    background-color: #e6b800;
+}
+
+.star {
+    color: gray;
+    cursor: pointer;
+}
+.filled {
+    color: gold;
+}
+.Speech-section img
+{
+  position: absolute;
+  top: 0px;
+}
+.coins .fa-coins
+{
+  border: 1px solid black;
+
+}
+.user-info
+{
+  position: absolute;
+  right: 0;
+}
+.sidebar .logo 
+{
+    margin-left: 0px;
+    position: absolute;
+    width: 65px !important;
+    height: 70px !important;
+}
+
+
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    {% include "components/sideBar.html" %}
+
+    <!-- Main Content -->
+    <div>
+      <header>
+        <div class="user-info">
+          <button><i class="fas fa-star"></i> Level {{user.level}}</button>
+
+          <button class="coins-value"><i class="fas fa-coins"></i> {{user.coins}}</button>
+
+      </div>
+          </button>
+        </div>
+      </header>
+    </div>
+    <div class="content">
+      <div class="Speech-section">
+        <img class="diamonds" src="{% static 'images/diamonds.png' %}" alt="Share">
+        <h3>
+          Explore a variety of courses, taught by students for students. Earn
+          credits by sharing your knowledge and spend them to learn something
+          new!
+        </h3>
+      </div>
+      <div class="Search-Bar">
+        <input type="text" placeholder="search a field ....." />
+        <i class="fas fa-search"></i>
+      </div>
+      <div>
+        <button
+          id="courseFilterBtn"
+          class="course-filter-btn"
+          onclick="filterCourse()"
+        >
+          Explore Courses 
+        </button>
+      </div>
+
+      <div class="courses-grid">
+        {% if courses %}
+        {% load static %}
+{% for course in courses %}
+    <div class="course-card">
+        <div class="course-details">
+            <h3>{{ course.titre }}</h3>
+            <p>{{ course.description }}</p>
+            <div class="course-header">
+                <span>{{ course.date }} {{ course.heure }}</span>
+                <span class="course-type">{{ course.categorie }}</span>
+            </div>
+        </div>
+        <div class="course-meta">
+            <div class="attendees"><i class="fas fa-user"></i> {{ course.maxParticipants }}</div>
+            <div class="coins"><i class="fas fa-coins"></i>{{ course.coins }}</div>
+        </div>
+
+        <!-- Buttons Section -->
+        <div class="course-actions">
+            {% if category == "Active Courses" %}
+            <button class="join-btn" onclick="joinCourse('{{ course.id }}')">Join</button>
+            {% elif category == "Explore Courses" %}
+            <button class="join-btn" onclick="joinCourse('{{ course.id }}')">Join</button>
+            <button class="agenda-btn" onclick="addToAgenda('{{ course.id }}')">Add to Agenda</button>
+            {% elif category == "Completed Courses" and course.host != user %}
+           
+            <!-- Star Rating System -->
+<div class="rating" data-course="{{ course.id }}">
+    {% for i in "12345" %}
+        <i class="fas fa-star star" data-course="{{ course.id }}" data-rate="{{ forloop.counter }}"></i>
+    {% endfor %}
+</div>
+<p class="course-rating">Current Rating: {{ course.rating|floatformat:1 }} ⭐</p>
+
+            {% endif %}
+        </div>
+    </div>
+{% empty %}
+    <div class="no-results">No Results</div>
+{% endfor %}
+
+
+    {% else %}
+        <div class="no-results">No Results</div>
+    {% endif %}
+    
+    </div>
+    
+         
+        
+      
+    </div>
+  </body>
+
+  <script>
+ // Global variable to store the dropdown menu
+let dropdownMenu;
+document.addEventListener("DOMContentLoaded", function () {
+    applyFilter("Explore Courses"); // Load default courses when page loads
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Attach event listeners to all stars
+    document.querySelectorAll(".star").forEach(star => {
+        star.addEventListener("click", function () {
+            const courseId = this.getAttribute("data-course");
+            const rating = this.getAttribute("data-rate");
+            rateCourse(courseId, rating);
+        });
+    });
+});
+
+function rateCourse(courseId, rating) {
+    fetch(`/rate-course/${courseId}/`, {
+        method: 'POST',
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else {
+            highlightStars(courseId, rating);
+            updateCourseRating(courseId, data.new_rating);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function highlightStars(courseId, rating) {
+    let stars = document.querySelectorAll(`.star[data-course="${courseId}"]`);
+    stars.forEach(star => {
+        let starValue = parseInt(star.getAttribute("data-rate"));
+        if (starValue <= rating) {
+            star.classList.add("filled");
+        } else {
+            star.classList.remove("filled");
+        }
+    });
+}
+
+function updateCourseRating(courseId, newRating) {
+    let ratingText = document.querySelector(`.rating[data-course="${courseId}"] + p`);
+    if (ratingText) {
+        ratingText.innerHTML = `Current Rating: ${parseFloat(newRating).toFixed(1)} ⭐`;
+    }
+}
+
+
+
+function filterCourse() {
+    const filterBtn = document.getElementById("courseFilterBtn");
+
+    if (!filterBtn) {
+        console.error("Filter button not found!");
+        return;
+    }
+
+    // Create dropdown menu only if it doesn't exist
+    if (!dropdownMenu) {
+        dropdownMenu = document.createElement("div");
+        dropdownMenu.classList.add("dropdown-menu");
+        dropdownMenu.innerHTML = `
+            <div class="dropdown-option selected" data-filter="Explore Courses"> Explore Courses </div>
+            <div class="dropdown-option" data-filter="Active Courses">Active Courses</div>
+            <div class="dropdown-option" data-filter="Completed Courses">Completed Courses</div>
+        `;
+
+        // Append dropdown to the button's parent (or adjust as needed)
+        filterBtn.parentElement.appendChild(dropdownMenu);
+
+        // Apply the default filter (All Courses)
+        applyFilter("Explore Courses");
+        filterBtn.textContent = "Explore Courses"; // Button text reflects selected option
+
+        // Event listener for selecting a filter option
+        dropdownMenu.addEventListener("click", function (event) {
+            if (event.target.classList.contains("dropdown-option")) {
+                // Remove 'selected' class from all options
+                document.querySelectorAll(".dropdown-option").forEach(option => {
+                    option.classList.remove("selected");
+                });
+
+                // Add 'selected' class to the clicked option
+                event.target.classList.add("selected");
+
+                // Update button text to match selected option
+                filterBtn.textContent = event.target.textContent;
+
+                // Apply filter
+                const filterValue = event.target.getAttribute("data-filter");
+                applyFilter(filterValue);
+
+                // Hide dropdown after selection
+                dropdownMenu.classList.remove("show");
+            }
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener("click", function (event) {
+            if (!filterBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.classList.remove("show");
+            }
+        });
+    }
+
+    // Toggle dropdown visibility on button click
+    dropdownMenu.classList.toggle("show");
+}
+function applyFilter(category) {
+    console.log(`Filtering by: ${category}`);
+
+    fetch(`/courses/${category}/`)
+        .then(response => response.text())
+        .then(data => {
+            document.querySelector(".courses-grid").innerHTML = data; // Only replace course cards
+        })
+        .catch(error => console.error("Error fetching courses:", error));
+}
+function joinCourse(courseId) {
+    fetch(`/join-course/${courseId}/`, { 
+        method: 'POST', 
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);  // Show error if any
+        } else {
+            alert(data.message);  // Success message
+            if (data.meetLink) {
+                window.open(data.meetLink, '_blank'); // Open Google Meet in a new tab
+            }
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
+function addToAgenda(courseId) {
+    fetch(`/add-to-agenda/${courseId}/`, { 
+        method: 'POST', 
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert("Failed to add to agenda: " + data.error);
+        } else {
+            alert("Meet added to agenda successfully!");
+            location.reload();  // Refresh UI to reflect changes
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
+
+  </script>
+</html>
